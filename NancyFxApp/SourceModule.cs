@@ -47,9 +47,9 @@ namespace NancyFxApp
     {
         public Source GetById(int id)
         {
-            if (id <= 0)
+            if (id == 10)
             {
-                throw new SourceNotFoundException();
+               throw new SourceNotFoundException();
             }
             return new Source
             {
