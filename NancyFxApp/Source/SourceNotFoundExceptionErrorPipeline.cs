@@ -2,7 +2,7 @@
 using Nancy;
 using Nancy.Bootstrapper;
 
-namespace NancyFxApp
+namespace NancyFxApp.Source
 {
     public class SourceNotFoundExceptionErrorPipeline : IApplicationStartup
     {

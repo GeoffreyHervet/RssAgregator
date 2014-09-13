@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
 
-namespace NancyTutorial.Web.Tests
+namespace NancyTutorial.Web.Tests.Source
 {
     [TestFixture]
     public class SourceModuleTests
