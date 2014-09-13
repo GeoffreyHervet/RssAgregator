@@ -10,6 +10,7 @@ namespace NancyFxApp.Source
         public SourceModule()
             : base("/sources")
         {
+            StaticConfiguration.DisableErrorTraces = false;
             var repository = Repository.Repository.getInstance();
 
             Get["/list/{page?:int)"] = parameters =>
