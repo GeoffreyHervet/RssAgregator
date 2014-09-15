@@ -73,7 +73,17 @@ namespace NancyFxApp.Source
 
             Delete["/{id:int}"] = parameters =>
             {
-                return HttpStatusCode.NotImplemented;
+                int id = parameters.id;
+                var model = repository.find<Source>(id);
+                if (model == null)
+                {
+                    return Negotiate.WithStatusCode(HttpStatusCode.NotFound).WithModel(String.Format("Item with id {0} not found.", id));
+                }
+
+                repository.delete<Source>(id);
+                return Negotiate
+                    .WithStatusCode(HttpStatusCode.OK)
+                    .WithModel(model);
             };
         }
     }
