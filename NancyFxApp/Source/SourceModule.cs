@@ -54,7 +54,28 @@ namespace NancyFxApp.Source
 
             Put["/{id:int}"] = parameters =>
             {
-                return HttpStatusCode.NotImplemented;
+                int id = parameters.id;
+                var model = repository.find<Source>(id);
+                if (model == null)
+                {
+                    return Negotiate.WithStatusCode(HttpStatusCode.NotFound).WithModel(String.Format("Item with id {0} not found.", id));
+                }
+
+                model = this.BindTo(model);
+                var result = this.Validate(model);
+
+                if (!result.IsValid)
+                {
+                    return Negotiate
+                        .WithStatusCode(HttpStatusCode.UnprocessableEntity)
+                        .WithModel(result);
+                }
+
+                repository.update(model);
+
+                return Negotiate
+                    .WithStatusCode(HttpStatusCode.OK)
+                    .WithModel(model);
             };
 
             Get["/{id:int}"] = parameters =>
