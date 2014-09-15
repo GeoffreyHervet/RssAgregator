@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nancy;
+using Nancy.ModelBinding;
 using NancyFxApp.Repository;
+using Nancy.Validation;
 
 namespace NancyFxApp.Source
 {
@@ -15,21 +17,12 @@ namespace NancyFxApp.Source
 
             Get["/list/{page?:int)"] = parameters =>
             {
-                var page = parameters.page;
-                int pageNb = 0;
-                if (page != null)
-                {
-                    pageNb = (int)page;
-                }
-                pageNb = Math.Max(pageNb, 1);
-
-                Console.WriteLine(pageNb);
-
-                var listOfSources = repository.findAll<Source>(pageNb);
+                int page = parameters.page;
+                page = Math.Max(page != null ? page : 0, 1);
 
                 return Negotiate
                     .WithStatusCode(HttpStatusCode.OK)
-                    .WithModel(listOfSources);
+                    .WithModel(repository.findAll<Source>(page));
             };
 
             Get["/validators"] = parameters =>
@@ -39,9 +32,24 @@ namespace NancyFxApp.Source
 
                 return this.Response.AsJson(validator.Description);
             };
+
             Post["/"] = _ =>
             {
-                return HttpStatusCode.NotImplemented;
+                Source model = this.Bind();
+                var result = this.Validate(model);
+
+                if (!result.IsValid)
+                {
+                    return Negotiate
+                        .WithStatusCode(HttpStatusCode.UnprocessableEntity)
+                        .WithModel(result);
+                }
+
+                repository.insert(model);
+
+                return Negotiate
+                    .WithStatusCode(HttpStatusCode.OK)
+                    .WithModel(model);
             };
 
             Put["/{id:int}"] = parameters =>
