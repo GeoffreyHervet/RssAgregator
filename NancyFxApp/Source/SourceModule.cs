@@ -32,6 +32,13 @@ namespace NancyFxApp.Source
                     .WithModel(listOfSources);
             };
 
+            Get["/validators"] = parameters =>
+            {
+                var validator =
+                    this.ValidatorLocator.GetValidatorForType(typeof(Source));
+
+                return this.Response.AsJson(validator.Description);
+            };
             Post["/"] = _ =>
             {
                 return HttpStatusCode.NotImplemented;
