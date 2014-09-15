@@ -18,7 +18,7 @@ namespace NancyFxApp.Source
         [PetaPoco.Column("id")]
         public int Id { get; set; }
 
-        [Required, RegularExpression(@"/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/", ErrorMessage="Invalid URL")]
+        [Required, RegularExpression(@"(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*/?"), StringLength(255)]
         [PetaPoco.Column("url")]
         public string Url { get; set; }
         
