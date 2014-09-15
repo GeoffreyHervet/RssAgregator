@@ -60,11 +60,15 @@ namespace NancyFxApp.Source
             Get["/{id:int}"] = parameters =>
             {
                 int id = parameters.id;
-                var SourceModel = repository.find<Source>(id);
+                var model = repository.find<Source>(id);
+                if (model == null)
+                {
+                    return Negotiate.WithStatusCode(HttpStatusCode.NotFound).WithModel(String.Format("Item with id {0} not found.", id));
+                }
 
                 return Negotiate
                     .WithStatusCode(HttpStatusCode.OK)
-                    .WithModel(SourceModel);
+                    .WithModel(model);
             };
 
             Delete["/{id:int}"] = parameters =>
