@@ -135,9 +135,9 @@
     <Compile Include="Models\PetaPoco.cs" />
     <Compile Include="NancyBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Generics\Repository.cs" />
     <Compile Include="Models\Source.cs" />
-    <Compile Include="Module\SourceModule.cs" />
+    <Compile Include="Modules\SourceModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

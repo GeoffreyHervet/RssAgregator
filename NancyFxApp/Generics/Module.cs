@@ -9,13 +9,13 @@
     public abstract class Module<T> : NancyModule
     {
 
-        protected Repository.Repository _repository;
+        protected Repository _repository;
 
         public Module(String baseUri)
             : base(baseUri)
         {
             StaticConfiguration.DisableErrorTraces = false;
-            _repository = Repository.Repository.getInstance();
+            _repository = Repository.getInstance();
 
 
             if (!isDisabledAction(Action.LIST))
