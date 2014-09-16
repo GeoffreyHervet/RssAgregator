@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace NancyFxApp.Source
+namespace NancyFxApp.Models
 {
     [PetaPoco.TableName("Source")]
     [PetaPoco.PrimaryKey("Id")]
