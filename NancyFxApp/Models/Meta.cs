@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace NancyFxApp.Models
 {
     
-    [PetaPoco.TableName("source_meta")]
+    [PetaPoco.TableName("meta")]
     [PetaPoco.PrimaryKey("Id")]
     [PetaPoco.ExplicitColumns]
     public class Meta
