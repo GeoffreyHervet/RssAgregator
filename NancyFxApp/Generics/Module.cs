@@ -20,10 +20,9 @@
 
             if (!isDisabledAction(Action.LIST))
             {
-                Get["/list/{page?:int)"] = parameters =>
+                Get["/page/{id:int}"] = _ =>
                 {
-                    int page = Math.Max(parameters.page, 1);
-
+                    int page = _.id;
                     return Negotiate
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithModel(_repository.findAll<T>(page));
@@ -32,7 +31,7 @@
 
             if (!isDisabledAction(Action.VALIDATORS))
             {
-                Get["/validators"] = parameters =>
+                Get["/validators"] = _ =>
                 {
                     var validator = this.ValidatorLocator.GetValidatorForType(typeof(T));
 
