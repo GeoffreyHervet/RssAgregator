@@ -11,8 +11,8 @@
         {
             switch (a)
             {
-//                case Action.CREATE:
-                case Action.READ:
+                case Action.CREATE:
+//                case Action.READ:
                 case Action.UPDATE:
                 case Action.DELETE:
 //                case Action.LIST:
