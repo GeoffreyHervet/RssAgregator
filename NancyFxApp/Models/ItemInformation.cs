@@ -26,5 +26,9 @@ namespace NancyFxApp.Models
         [Required]
         [PetaPoco.Column("item_id")]
         public int ItemId { get; set; }
+
+        [Required]
+        [PetaPoco.Column("value")]
+        public String Value { get; set; }
     }
 }
