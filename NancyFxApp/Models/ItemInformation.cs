@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations;
 namespace NancyFxApp.Models
 {
     
-    [PetaPoco.TableName("meta")]
+    [PetaPoco.TableName("item_information")]
     [PetaPoco.PrimaryKey("Id")]
     [PetaPoco.ExplicitColumns]
-    public class Meta
+    public class ItemInformation
     {
         [PetaPoco.Column("id")]
         public int Id { get; set; }
