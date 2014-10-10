@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NancyFxApp.Models
 {
-    [PetaPoco.TableName("Source")]
+    [PetaPoco.TableName("user")]
     [PetaPoco.PrimaryKey("Id")]
     [PetaPoco.ExplicitColumns]
-    public class Source
+    public class User
     {
-        public Source()
+        public User()
         {
             this.CreatedAt = DateTime.Now;
             this.UpdatedAt = DateTime.Now;
@@ -18,17 +18,18 @@ namespace NancyFxApp.Models
         [PetaPoco.Column("id")]
         public int Id { get; set; }
 
-        [Required, RegularExpression(@"(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*/?"), StringLength(255)]
-        [PetaPoco.Column("url")]
+        [Required, EmailAddress, StringLength(255)]
+        [PetaPoco.Column("email")]
         public string Url { get; set; }
+
+        [Required, StringLength(255)]
+        [PetaPoco.Column("password")]
+        public string Password { get; set; }
         
         [PetaPoco.Column("created_at")]
         public DateTime CreatedAt { get; set; }
         
         [PetaPoco.Column("updated_at")]
         public DateTime UpdatedAt { get; set; }
-
-        [PetaPoco.Column("user_id")]
-        public int UserId { get; set; }
     }
 }
