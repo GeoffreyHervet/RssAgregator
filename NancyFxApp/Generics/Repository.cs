@@ -39,9 +39,15 @@ namespace NancyFxApp.Generics
             return repo;
         }
 
-        public T find<T>(int id, string identifier = "id")
+        public T find<T>(object id, string identifier = "id")
         {
+            System.Console.WriteLine("WHERE " + identifier + "=@0", id);
             return this._databaseConnexion.SingleOrDefault<T>("WHERE " + identifier + "=@0", id);
+        }
+        public T findOne<T>(string request)
+        {
+            System.Console.WriteLine("WHERE " + request);
+            return this._databaseConnexion.SingleOrDefault<T>("WHERE " + request);
         }
         public int delete<T>(int id, string identifier = "id")
         {

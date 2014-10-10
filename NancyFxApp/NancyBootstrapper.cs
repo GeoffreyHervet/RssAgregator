@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Nancy.Bootstrappers.StructureMap;
-using StructureMap;
-using StructureMap.Graph;
-
-namespace NancyFxApp
+﻿/*namespace NancyFxApp
 {
+    using System;
+    using Nancy.Bootstrappers.StructureMap;
+    using StructureMap;
+    using StructureMap.Graph;
+
     public class NancyBootstrapper : StructureMapNancyBootstrapper
     {
         protected override void ConfigureApplicationContainer(IContainer container)
@@ -18,10 +15,10 @@ namespace NancyFxApp
                 {
                     scanner.WithDefaultConventions();
                     scanner.TheCallingAssembly();
-                    // scanner.AddAllTypesOf<IRepository>();
+                    // scanner.eAddAllTypesOf<IRepository>();
                 });
             });
             base.ConfigureApplicationContainer(container);
         }
     }
-}
+}*/
