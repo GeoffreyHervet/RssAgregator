@@ -6,6 +6,8 @@
     using Nancy;
     using Nancy.Authentication.Forms;
     using Nancy.Extensions;
+    using System.Collections.Generic;
+
     public class SessionModule : NancyModule
     {
 
@@ -27,6 +29,12 @@
 
             Delete["/"] = _ =>
             {
+                this.LogoutWithoutRedirect();
+                if (Accept("application/json") || Accept("application/xml"))
+                {
+                    var ret = new Dictionary<string, bool>();
+                    return this.LogoutWithoutRedirect();
+                }
                 return this.LogoutAndRedirect("~/");
             };
 
@@ -42,7 +50,17 @@
 
                 if (user == null)
                 {
-                    return this.Context.GetRedirect("/session?error=true&login=" + (string)this.Request.Form.email);
+                    if (Accept("application/json") || Accept("application/xml"))
+                    {
+                        var ret = new Dictionary<string, bool>();
+                        ret["Success"] = false;
+                        return Negotiate
+                            .WithStatusCode(HttpStatusCode.UnprocessableEntity)
+                            .WithModel(ret)
+                        ;
+
+                    }
+                    return this.Context.GetRedirect("/session?error=true&username=" + (string)this.Request.Form.email);
                 }
 
                 DateTime? expiry = null;
@@ -51,8 +69,32 @@
                     expiry = DateTime.Now.AddDays(7);
                 }
 
+                if (Accept("application/json") || Accept("application/xml"))
+                {
+                    var ret = new Dictionary<string, bool>();
+                    ret["Success"] = true;
+                    return this.Login(user.getRealGuid(), expiry)
+                        .WithStatusCode(HttpStatusCode.OK)
+                    ;
+
+                }
+
                 return this.LoginAndRedirect(user.getRealGuid(), expiry);
             };
+        }
+
+        public bool Accept(string contentType)
+        {
+            IEnumerable<System.Tuple<string, decimal>> accept = Context.Request.Headers.Accept;
+            IEnumerator<System.Tuple<string, decimal>> enumerator = accept.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.Item1.Contains(contentType))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
