@@ -8,7 +8,6 @@
     {
         public UserModule() : base("/")
         {
-            this.RequiresAuthentication();
         }
         public override bool isDisabledAction(Action a)
         {

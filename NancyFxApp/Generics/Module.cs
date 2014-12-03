@@ -5,6 +5,9 @@
     using Nancy.Responses.Negotiation;
     using Nancy.ModelBinding;
     using Nancy.Validation;
+
+    using Nancy.Security;
+
     public enum Action { CREATE, READ, UPDATE, DELETE, LIST, VALIDATORS };
     public abstract class Module<T> : NancyModule
     {
@@ -17,6 +20,10 @@
             StaticConfiguration.DisableErrorTraces = false;
             _repository = Repository.getInstance();
 
+            if (this.isRequiredLoggued())
+            {
+                this.RequiresAuthentication();
+            }
 
             if (!isDisabledAction(Action.LIST))
             {
@@ -72,6 +79,11 @@
                 };
             }
 
+        }
+
+        public virtual bool isRequiredLoggued()
+        {
+            return true;
         }
 
         public virtual bool isDisabledAction(Action a)
